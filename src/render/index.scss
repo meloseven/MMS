@@ -1,0 +1,154 @@
+@import '~antd/dist/antd.css';
+html,
+body {
+  margin:0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-overflow-scrolling: touch;
+  font-family: 'Helvetica PingFang SC';
+  overflow: hidden;
+}
+#root{
+  margin:0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  .main{
+    height: 100vh;
+    .sider{
+      .logo{
+        font-family: 'Courier';
+        width: 100%;
+        text-align: center;
+        font-size: 30px;
+        letter-spacing: 4px;
+        line-height: 64px;
+        color: #ffffff;
+        background: rgba(0,200,150,0.7);
+        font-family: Courier;
+      }
+    }
+    .toolbar{
+      width: 100%;
+      padding:10px;
+      .left{
+        display: inline-block;
+      }
+      .right{
+        float: right;
+      }
+    }
+  }
+}
+//dropdown style
+.ant-dropdown-link{
+  color: #fff;
+  float: right;
+  font-weight: normal;
+  &:hover{
+    color: #fff;
+    float: right;
+  }
+  .anticon>svg{
+    transition: all linear .5s;
+  }
+}
+
+//dialog form
+.comp-item{
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  .comp-item-label{
+    flex:2 1 100px;
+    text-align: right;
+    line-height: 30px;
+  }
+  .comp-item-cont{
+    flex:8 1 200px;
+    text-align: left;
+    padding-left: 10px;
+  }
+}
+
+/*新建页面模块*/
+.create{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  .preview{
+    width: 100%;
+    height: 100%;
+    background: #cccccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .phone{
+    position: relative;
+    width: 300px;
+    margin-top: 3px;
+    height: 622px;
+    background: url('../assets/phone.png') no-repeat;
+    background-size: 100%;
+    transition:all linear .3s;
+  }
+  .phone iframe{
+    position: absolute;
+    top: 75px;
+    left: 17px;
+    width: 268px;
+    height: 474px;
+    border: none;
+  }
+  .tool{
+    position: absolute;
+    width: 320px;
+    top: 0;
+    height: 100%;
+    transition:all linear .3s;
+    z-index: 1;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .tool-toggle{
+    position: absolute;
+    top: 50%;
+    left: -35px;
+    width: 35px;
+    height: 50px;
+    font-size: 30px;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1890ff;
+    cursor: pointer;
+  }
+  .comp{
+    display: inline-block;
+    margin: 0 1px 1px 0;
+    width: 145px;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+    background-color: #00B494;
+    color: #fff;
+    cursor: pointer;
+    user-select: none;
+  }
+  .tool-bottom{
+    flex: none;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

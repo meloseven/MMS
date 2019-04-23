@@ -1,0 +1,417 @@
+@import '~antd/dist/antd.css';
+html,
+body {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  font-size: 16px;
+  background: #ffffff;
+  font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif;
+  overflow-x:hidden;
+  -webkit-overflow-scrolling: touch;
+}
+html{
+  font-size: calc(.8em + .5vw)
+}
+button{
+  font: inherit;
+}
+input{
+  font: inherit;
+}
+#root{
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.operation{
+  
+}
+
+/**商品列表**/
+@mixin li($width) {
+  width: $width;
+  display: inline-block;
+  vertical-align: top;
+  list-style: none;
+}
+.goods-title{
+  margin-top: .5rem;
+  padding: 0 .3125rem;
+  display: flex;
+  .goods-title-from{
+    width: 1rem;
+    height: 1rem;
+    margin-right: -1rem;
+    margin-top: .0625rem;
+    img{
+      vertical-align: top;
+    }
+  }
+  .goods-title-text{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    /* autoprefixer: off */
+    -webkit-box-orient: vertical;
+    /* autoprefixer: on */
+    font-size: .875rem;
+    text-align: left;
+    color: #333;
+    flex: 1;
+    text-indent: 1.125rem;
+    height: 2.375rem;
+    line-height: 1.1875rem;
+  }
+}
+.goods-list.goods-self .goods-title-text{
+  text-indent: 0;
+}
+.goods-list{
+  &>ul{
+    padding: 0 .3125rem;
+    li.two-column{
+      @include li(50%);
+      .goods-item{
+        position: relative;
+        display: block;
+        margin: 0 .15625rem .3125rem .15625rem;
+        background-color: #fff;
+        .img-cover{
+          padding: 0 .3125rem;
+          padding-top: .3125rem;
+          position: relative;
+          &::after{
+            content: '';
+            display: inline-block;
+            padding-top: 100%;
+            width: 0;
+          }
+          img{
+            position: absolute;
+            top:0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+          }
+        }
+        .goods-coupon{
+          font-size: .8125rem;
+          text-align: center;
+          padding: 0 .3125rem;
+          margin-top: .3125rem;
+          display: flex;
+          align-items: center;
+          .goods-coupon-1{
+            border-radius: .125rem;
+            color: #ff262d;
+            background: #ffe9e9;
+            padding: 0 .375rem;
+            white-space: nowrap;
+          }
+          .goods-coupon-2{
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            border-radius: .125rem;
+            background-image: url('http://static.fenxianglife.com/fms/static/count_bg.svg');
+            color: #99520f;
+            width: 3.625rem;
+            height: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-left: 1.125rem;
+            margin-left: .25rem;
+            line-height: 1rem;
+          }
+        }
+        .goods-price{
+          text-align: left;
+          font-size: 1.125rem;
+          line-height: 1.125rem;
+          font-style: normal;
+          font-weight: 700;
+          padding: 0 .3125rem;
+          margin-top: .5rem;
+        }
+        .goods-bottom{
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-size: .75rem;
+          color: #999;
+          line-height: .625rem;
+          padding: 0 .3125rem;
+          padding-bottom: .5rem;
+          margin-top: .5rem;
+        }
+        .goods-org-price{
+          text-decoration: line-through;
+        }
+      }
+    }
+    li.three-column{
+      @include li(33.33%);
+      .goods-item{
+        position: relative;
+        display: block;
+        margin: 0 .15625rem .3125rem .15625rem;
+        background-color: #fff;
+        .img-cover{
+          padding: 0 .3125rem;
+          padding-top: .3125rem;
+          position: relative;
+          &::after{
+            content: '';
+            display: inline-block;
+            padding-top: 100%;
+            width: 0;
+          }
+          img{
+            position: absolute;
+            top:0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+          }
+        }
+        .goods-coupon{
+          font-size: .75rem;
+          padding: 0 .3125rem;
+          margin-top: .3125rem;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          .goods-coupon-1{
+            color: #ff262d;
+            white-space: nowrap;
+          }
+          .goods-coupon-2{
+            color: #99520f;
+            white-space: nowrap;
+          }
+        }
+        .goods-price{
+          display: flex;
+          padding: 0 .3125rem;
+          align-items: baseline;
+          .goods-now-price{
+            font-size: .9375rem;
+            color: #333;
+            font-weight: bold;
+          }
+          .goods-org-price{
+            font-size: .75rem;
+            color: #999;
+            position: relative;
+            margin-left: .3125rem;
+            text-decoration: line-through;
+          }
+        }
+        .goods-sales{
+          font-size: 12px;
+          color: #999;
+          padding: 0 .3125rem;
+          padding-bottom: .3125rem;
+          margin-top: .125rem;
+          text-align: left;
+          white-space: nowrap;
+        }
+      }
+    }
+    li.one-column{
+      @include li(100%);
+      .goods-item{
+        position: relative;
+        display: flex;
+        border-radius: 0.5rem;
+        padding: 0.8125rem 0.625rem 0.4375rem 0.625rem;
+        margin: 0 .15625rem .3125rem .15625rem;
+        background-color: #fff;
+        .item-left{
+          flex: none;
+          width: 7.5rem;
+          height: 7.5rem;
+          .img-cover{
+            padding:0;
+            img{
+              width: 100%;
+              border-radius: .5rem;
+            }
+          }
+        }
+        .item-right{
+          flex: 1;
+          margin-left: 0.625rem;
+          box-sizing: border-box;
+          text-align: left;
+          line-height: 1.25rem;
+          .goods-price{
+            display: flex;
+            margin-top: 0.25rem;
+            height: 0.875rem;
+            .goods-org-price{
+              font-family: PingFangSC-Medium;
+              font-size: 0.75rem;
+              color: #222222;
+              line-height: 0.875rem;
+              padding: 0;
+              text-decoration: line-through;
+            }
+            .goods-coupon{
+              display: flex;
+              font-size: .8125rem;
+              padding: 0;
+              .goods-coupon-2{
+                display: flex;
+                justify-content: center;
+                width: 3.625rem;
+                background-image: url('http://static.fenxianglife.com/fms/static/icon_li_ticket_bg.svg');
+                background-repeat: no-repeat;
+                background-size: 100% 100%;
+                border-radius: .125rem;
+                height: 0.875rem;
+                font-family: Helvetica;
+                font-size: 0.75rem;
+                color: #5D250A;
+                line-height: 0.75rem;
+                margin-left: 0.375rem;
+                padding: 0;
+                span{
+                  margin-left: 1.125rem;
+                }
+              }
+              .goods-coupon-1{
+                background: #FFD35A;
+                border-radius: 0.125rem;
+                font-family: Helvetica;
+                font-size: 0.75rem;
+                color: #5D250A;
+                text-align: center;
+                line-height: 0.875rem;
+                margin-left: 0.375rem;
+                padding: 0 .375rem;
+                white-space: nowrap;
+              }
+            }
+          }
+          .goods-sales{
+            font-size: 12px;
+            color: #999;
+            padding: 0;
+            margin-top: 0.25rem;
+          }
+          .goods-bottom{
+            display: flex;
+            align-items: center;
+            .goods-now-price{
+              font-style: normal;
+              font-weight: 700;
+              font-family: Helvetica-Bold;
+              font-size: 0.875rem;
+              color: #C8161D;
+              line-height: 2.5rem;
+              padding: 0;
+              .num{
+                font-size: 1.125rem;
+                margin-left: 0.25rem;
+              }
+              .info{
+                font-family: PingFangSC-Semibold;
+                font-size: 0.75rem;
+                color: #222222;
+                letter-spacing: 0;
+                margin-left: 0.375rem;
+              }
+            }
+            .buy-btn{
+              display: flex;
+              align-items: center;
+              position: absolute;
+              height: 1.5rem;
+              right: 0;
+              background-image: linear-gradient(269deg, #EA0303 0%, #F76B1C 100%);
+              box-shadow: 0 0.125rem 0.25rem 0 rgba(246,98,26,0.40);
+              border-radius: 0.75rem 0rem 0rem 0.75rem;
+              font-family: PingFangSC-Medium;
+              font-size: 0.75rem;
+              color: #FFFFFF;
+              padding-left: 0.875rem;
+              white-space: nowrap;
+              .buy-btn-icon{
+                display: inline-block;
+                width: 1rem;
+                height: 1rem;
+                margin: 0 0.375rem;
+                background: #fff;
+                border-radius: 50%;
+                background-image: url('http://static.fenxianglife.com/fms/static/icon_shopping.svg');
+                background-repeat: no-repeat;
+                background-size: 100%;
+              }
+            }
+          }
+          .flag{
+            position: absolute;
+            box-sizing: border-box;
+            padding: 0.25rem 0.875rem 0;
+            top: -0.25rem;
+            left: 0.5rem;
+            width: 3.5rem;
+            height: 2.625rem;
+            background-image: url('http://static.fenxianglife.com/fms/static/icon_jb_bg.svg');
+            background-size: 100%;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #FFFFFF;
+            letter-spacing: 0.0625rem;
+            line-height: 0.875rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+/**Tab导航**/
+.tab-nav{
+  width: 100%;
+  height: 2.5rem;
+  position: relative;
+  overflow: hidden;
+  display: block;
+  text-align: left;
+  .tab-nav-cp{
+    width: 100%;
+    height: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    display: block;
+    text-align: left;
+    &.fixed{
+      position: fixed;
+      top:0;
+      left:0;
+      z-index: 100;
+    }
+    .tab-container{
+      display: inline-block;
+      height: 2.5rem;
+      transition: transform 0.4s linear;
+      white-space: nowrap;
+      .tab-item{
+        height: 2.375rem;
+        line-height: 2.375rem;
+        text-align: center;
+        display: inline-block;
+        margin: 0rem;
+        padding: 0rem 0.5rem;
+        min-width: 6.25rem;
+        border-bottom: none;
+      }
+    }
+  }
+}
