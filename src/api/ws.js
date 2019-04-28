@@ -1,11 +1,12 @@
 const WebSocket = require('ws');
 const util = require('../util')
-const config = require('../../config').local
+const config = require('../../ws.config')
 const {COMMAND} = require('../constants')
 const sessionList = [];
 const sessionWsMap = new Map();//key:session external key, value:{sesion, ws}
 
-const wss = new WebSocket.Server({port: 8080});
+const wsConf = process.env.NODE_ENV === 'development'?config.local: config.prod
+const wss = new WebSocket.Server({port: wsConf.port});
 
 wss.on('connection', function(ws){
   ws.isAlive = true;
@@ -45,7 +46,7 @@ const interval = setInterval(function ping() {
     ws.isAlive = false;
     ws.ping(noop)
   })
-}, config.wsTimeout)
+}, wsConf.timeout)
 
 function noop(){}
 function heartBeat(){

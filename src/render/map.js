@@ -2,6 +2,7 @@ import Login from './login'
 import Project from './project'
 import Page from './page'
 import PageCreator from './creator'
+import ProjectAdd from './projectAdd'
 
 const allModules = [
   {
@@ -23,6 +24,11 @@ const allModules = [
     name: 'pageCreator',
     title: '创建页面',
     comp: PageCreator
+  },
+  {
+    name: 'projectAdd',
+    title: '添加项目',
+    comp: ProjectAdd
   },
 ];
 

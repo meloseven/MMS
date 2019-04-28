@@ -5,7 +5,6 @@ const fs = require('fs');
 const nodeExternals = require('webpack-node-externals');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const conf = require('../../config')
 
 const getStyleLoaders = (cssOptions, preProcessor) => {
   const loaders = [
@@ -60,7 +59,7 @@ const getStyleLoaders = (cssOptions, preProcessor) => {
  * @param title 页面标题
  */
 module.exports = function(_comps, _sessKey, tempPath, mode, title = ''){
-  const wpMode = mode?'production':'development';
+  const wpMode = (process.env.NODE_ENV === 'development')?(mode?'production':'development'):'production';
   const publicPath = mode?`/fms/${tempPath}`: `/${tempPath}`
   return {
     mode: wpMode,
@@ -157,7 +156,7 @@ module.exports = function(_comps, _sessKey, tempPath, mode, title = ''){
     },
     /* devtool:'source-map', */
     optimization: {
-      minimize: true
+      minimize: !(process.env.NODE_ENV === 'development')
     }
   }
 }

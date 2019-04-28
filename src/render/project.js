@@ -9,27 +9,32 @@ const padZero = str => str < 10 ? ('0' + str) : ('' + str);
 
 function Project(){
   const [listData, setListData] = useState([]);
+  const [loading, setLoading] = useState(true);
   useEffect(()=>{
     axios({
-      url: '/api/project/getList',
+      url: '/api/project/getList?_t='+Date.now(),
     }).then(({data})=>{
       if(data.code === 200){
         setListData(data.data);
       }
+      setLoading(false);
     })
   },[])
+  const toAdd = () => {
+    location.href = '/project/add'
+  }
   return (
     <div className="project">
       <div className="toolbar">
         <div className="left">
-          <Button type="primary" shape="round" icon="plus">新建</Button>
+          <Button type="primary" shape="round" icon="plus" onClick={toAdd}>新建</Button>
         </div>
         <div className="right">
           <Search placeholder="请输入关键词进行搜索" onSearch={()=>{}} style={{width: 200}}/>
         </div>
       </div>
       <div className="content">
-        <Table dataSource = {listData} loading={listData.length === 0} pagination={{
+        <Table dataSource = {listData} loading={loading} pagination={{
           pageSize: 10
         }}>
           <Column align='center' title="项目名称" dataIndex="proname"/>

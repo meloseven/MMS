@@ -9,6 +9,8 @@ const Router = require('koa-router')
 const serve = require('koa-static')
 const conn = require('./src/model/mysql')
 const allRouters = require('./router');
+const config = require('./config')
+const fs = require('fs')
 const app = new Koa();
 const router = new Router();
 
@@ -74,12 +76,13 @@ Object.keys(allRouters.apis.post).forEach(item => {
   router.post(item, allRouters.apis.post[item]);
 })
 
+const redisConf = process.env.NODE_ENV === 'development'? config.local.redis: config.prod.redis
 app.use(session({
   key:'fms:sess',
   store: redisStore({
-    host: '127.0.0.1',
-    port: '6379',
-    db: 0
+    host: redisConf.host,
+    port: redisConf.port,
+    db: redisConf.db
   })
 }, app))
 
@@ -102,4 +105,12 @@ app.use(serve('./dist', {
 app.listen(4000 ,()=>{
   console.info('Server start at 4000.');
 });
-//TODO 定时任务清除dist下的目录，node-cron
+
+//创建路径
+fs.access(path.resolve(__dirname , './.temp'), fs.constants.F_OK, (err) => {
+  if(err){
+    fs.mkdir(path.resolve(__dirname , './.temp'), (err) => {
+      if(err) throw err
+    })
+  }
+})

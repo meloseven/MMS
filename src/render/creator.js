@@ -222,7 +222,7 @@ function PageCreator(){
   }
 
   const getLink = ()=>{
-    const host = 'http://front.fenxianglife.com'
+    const host = process.env.NODE_ENV === 'development'?'http://front.fenxianglife.com':'https://m.fenxianglife.com'
     const url = `${host}/fms/${projectId}/${pagePathName}/index.html`
     Modal.info({title: '页面链接', content: url})
   }

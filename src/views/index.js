@@ -3,13 +3,14 @@ import ReactDOM from 'react-dom';
 import AllComponent from '../component';
 import {COMPONENT_ACTION, COMMAND} from '../constants';
 import {Toast} from 'antd-mobile';
-import config from '../../config'
+import config from '../../ws.config'
 import './index.scss';
 import usePrevious from './hooks/usePrevious';
 import tool from './tool'
 import 'antd-mobile/dist/antd-mobile.css'; 
 
 const mode = parseInt(process.env._mode);
+const wsConf = process.env._isTest ? config.local: config.prod
 
 function reducer(comps, {type, uid, props, index}){
   switch(type){
@@ -49,7 +50,8 @@ function App() {
       top.postMessage({comps, type:'mutate'}, '*')
     }, [comps])
     useEffect(() => {
-      const ws = new WebSocket('ws://127.0.0.1:8080');
+      const host = process.env.NODE_ENV==='development'?'127.0.0.1':'fms.fenxianglife.com'
+      const ws = new WebSocket('ws://' + host + ':' + wsConf.clientPort);
       ws.onmessage = function(msg){
         msg = JSON.parse(msg.data)
         const {uid, props, index} = {...msg};
@@ -66,7 +68,7 @@ function App() {
           if(ws.readyState === 1){
             ws.send(COMMAND.HEARTBEAT) 
           }
-        }, config.local.wsTimeout - 5000)
+        }, wsConf.timeout - 5000)
       }
       ws.onerror = function(){
         Toast.fail('超时，请刷新页面');

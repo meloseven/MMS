@@ -26,7 +26,7 @@ module.exports = {
       const results = await conn.execute('INSERT INTO dms_page (title, projectId, fileName, delta, uid, username, status, createTime, updateTime) VALUES (' + 
       `'${title}', ${projectId}, '${fileName}', '${JSON.stringify(delta)}', ${uid}, '${username}', ${status}, ${time}, ${time})`)
       const pageId = results[0].insertId;
-      ctx.body = util.response({pageId});
+      ctx.body = util.response({pageId, fileName});
     }catch(e){
       console.log(e);
       ctx.body = util.response(null, 500, '保存错误');
@@ -65,7 +65,8 @@ module.exports = {
           err ? reject(err): resolve()
         })
       })
-      fxSharedNode.uploadOSS(`./dist/${tempPath}`, `fms/${tempPath}`, 'fenxiang-test')
+      const bucketPath = process.env.NODE_ENV==='development'?'fenxiang-test':'feixiangm'
+      fxSharedNode.uploadOSS(`./dist/${tempPath}`, `fms/${tempPath}`, bucketPath)
       rimraf(path.resolve(process.cwd(), `./dist/${pageInfo.projectId}`), (e)=>{
         if(e){
           throw new Error(e);

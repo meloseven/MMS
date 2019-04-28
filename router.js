@@ -5,6 +5,7 @@ module.exports = {
     '/auth/login': serverEntry.login,
     '/auth/users': serverEntry.project,
     '/project/all': serverEntry.project,
+    '/project/add': serverEntry.projectAdd,
     '/project/page': serverEntry.page,
     '/project/page/create':serverEntry.pageCreator,
   },
@@ -21,6 +22,7 @@ module.exports = {
     },
     post: {
       '/api/login':API.auth.login,
+      '/api/project/add': API.project.add,
       '/api/comp/add': API.comp.add,
       '/api/comp/edit': API.comp.edit,
       '/api/page/save': API.page.savePageInfo,

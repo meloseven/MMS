@@ -50,7 +50,7 @@ const getStyleLoaders = (cssOptions, preProcessor) => {
   return loaders;
 };
 
-const config = {
+let config = {
   mode: 'production',
   context: path.resolve(process.cwd(), './src'),
   entry: {
@@ -66,7 +66,6 @@ const config = {
       chunkFilename: "[id].css"
     })
   ],
-  devtool:'source-map',
   module: {
     rules: [
       /* {
@@ -130,7 +129,10 @@ const config = {
     ]
   },
   optimization: {
-    minimize: true
+    minimize: !(process.env.NODE_ENV === 'development')
   }
+}
+if(process.env.NODE_ENV === 'development'){
+  config.devtool = 'source-map'
 }
 module.exports = config;
